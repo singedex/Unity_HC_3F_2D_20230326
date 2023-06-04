@@ -28,7 +28,7 @@ public class DamageSystem : MonoBehaviour
     private void GetDamage()
     {
         hp -= 50;
-        print("血量剩下:" + hp);
+        //print("血量剩下:" + hp);
 
         if (hp <= 0) 
             Dead();
