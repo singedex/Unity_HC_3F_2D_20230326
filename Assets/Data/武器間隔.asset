@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be51d1c68c9fa2941bcb21a1756f184d, type: 3}
+  m_Name: "\u6B66\u5668\u9593\u9694"
+  m_EditorClassIdentifier: 
+  nameSkill: "\u6B66\u5668\u901F\u5EA6"
+  skillValues:
+  - 2
+  - 1.8
+  - 1.6
+  - 1.4
+  - 1.2
+  iconSkill: {fileID: 21300000, guid: bd82b01ebbb43184dbb9d6694d06d177, type: 3}
+  description: "\u653B\u64CA\u901F\u5EA620%UP"
+  lv: 1

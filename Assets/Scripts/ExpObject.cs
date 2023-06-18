@@ -30,7 +30,7 @@ public class ExpObject : MonoBehaviour
             float distance = Vector2.Distance(transform.position, player.position);
             if(distance < eatDistance)
             {
-                levelManager.GetExp(exp);
+               // levelManager.GetExp(exp);
                 Destroy(gameObject);
             }
         }

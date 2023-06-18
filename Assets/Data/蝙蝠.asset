@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac2d199533be7f48bfd9f0edeef7338, type: 3}
   m_Name: "\u8759\u8760"
   m_EditorClassIdentifier: 
-  hp: 50
+  hp: 30
   prefabExp: {fileID: 6655825349830082033, guid: 4fedfed3d1e12dd43ba504cd36b9c07f,
     type: 3}
-  dropProbaility: 0.609
+  dropProbaility: 0.517
