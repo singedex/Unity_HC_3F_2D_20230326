@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
 
 public class DamageSystem : MonoBehaviour
 {
     [Header("血量資料")]
     public DataHealth data;
+    [Header("畫布傷害值")]
+    public GameObject prefabDamage;
 
     private float hp;
 
@@ -20,18 +23,20 @@ public class DamageSystem : MonoBehaviour
         //print(collision.gameObject);
         if(collision.gameObject.name.Contains("武器"))
         {
-            //print("PON!!");
-            GetDamage();
+            float attack = collision.gameObject.GetComponent<Weapon>().attack;
+            GetDamage(attack);
         }
     }
 
-    private void GetDamage()
+    private void GetDamage(float damage)
     {
-        hp -= 50;
-        //print("血量剩下:" + hp);
+        print($"<color=ff6687>受到傷害 {damage}</color>");
+        hp -= damage;
+        GameObject tempDamage = Instantiate(prefabDamage, transform.position, transform.rotation);
+        tempDamage.transform.Find("文字傷害值").GetComponent<TextMeshProUGUI>().text = damage.ToString();
+        Destroy(tempDamage, 1.5f);
 
-        if (hp <= 0) 
-            Dead();
+        if (hp <= 0) Dead();
     }
 
     private void Dead()

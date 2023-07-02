@@ -1,8 +1,8 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -59,65 +59,88 @@ public class LevelManager : MonoBehaviour
         imgExp.fillAmount = exp / expNeeds[lv - 1];
     }
 
-    private void LevelUp()
-    {
-        goLevelUp.SetActive(true);
-        randomSkill = dataSkills.Where(x => lv < 5).ToList();
-        randomSkill = randomSkill.OrderBy(x =>Random.Range(0,999)).ToList();
+		private void LevelUp()
+	{
+		//時間暫停
+		Time.timeScale = 0;
+		goLevelUp.SetActive(true);
+		randomSkill = dataSkills.Where(x => lv < 5).ToList();
+		randomSkill = randomSkill.OrderBy(x => Random.Range(0, 999)).ToList();
 
-        for (int i = 0; i < 3; i++)
-        {
-            goChooseSkills[i].transform.Find("技能名稱").GetComponent<TextMeshProUGUI>().text = randomSkill[i].nameSkill;
-            goChooseSkills[i].transform.Find("技能描述").GetComponent<TextMeshProUGUI>().text = randomSkill[i].description;
-            goChooseSkills[i].transform.Find("技能等級").GetComponent<TextMeshProUGUI>().text = "等級 LV" + randomSkill[i].lv;
-            goChooseSkills[i].transform.Find("技能圖片").GetComponent<Image>().sprite = randomSkill[i].iconSkill;
-        }
-    }
+		for (int i = 0; i < 3; i++)
+		{
+			goChooseSkills[i].transform.Find("技能名稱").GetComponent<TextMeshProUGUI>().text = randomSkill[i].nameSkill;
+			goChooseSkills[i].transform.Find("技能描述").GetComponent<TextMeshProUGUI>().text = randomSkill[i].description;
+			goChooseSkills[i].transform.Find("技能等級").GetComponent<TextMeshProUGUI>().text = "等級 LV" + randomSkill[i].lv;
+			goChooseSkills[i].transform.Find("技能圖片").GetComponent<Image>().sprite = randomSkill[i].iconSkill;
+		}
+	}
 
-    private void ClickSkillButton(int number)
-    {
-        print("玩家按下的技能是:"+randomSkill[number].nameSkill);
+	#region 技能細項
+	private void ClickSkillButton(int number)
+	{
+		print("玩家按下的技能是:" + randomSkill[number].nameSkill);
 
-        randomSkill[number].lv++;
-        if (randomSkill[number].nameSkill == "移動速度") UpdateMoveSpeed(number);
-        if (randomSkill[number].nameSkill == "武器攻擊") UpdateWeaponAttack(number);
-        if (randomSkill[number].nameSkill == "武器間隔") UpdateWeaponInterval(number);
-        if (randomSkill[number].nameSkill == "玩家血量") UpdatePlyerHealth(number);
-        if (randomSkill[number].nameSkill == "經驗值範圍") UpdateExpRange(number);
-    }
+		randomSkill[number].lv++;
+		if (randomSkill[number].nameSkill == "移動速度") UpdateMoveSpeed(number);
+		if (randomSkill[number].nameSkill == "武器攻擊") UpdateWeaponAttack(number);
+		if (randomSkill[number].nameSkill == "武器間隔") UpdateWeaponInterval(number);
+		if (randomSkill[number].nameSkill == "玩家血量") UpdatePlyerHealth(number);
+		if (randomSkill[number].nameSkill == "經驗值範圍") UpdateExpRange(number);
 
-    [Header("控制系統:犀牛")]
-    public ControlSystem controlSystem;
-    [Header("武器系統:犀牛")]
-    public WeaponSystem weaponSystem;
-    [Header("玩家血量:玩家犀牛")]
-    public DataHealth dataHealth;
+		Time.timeScale = 1;
+		goLevelUp.SetActive(false);
+	}
 
-    public void UpdateMoveSpeed(int number)
-    {
-        int lv = randomSkill[number].lv;
-        controlSystem.moveSpeed = randomSkill[number].skillValues[lv - 1];
-    }
+	[Header("控制系統:犀牛")]
+	public ControlSystem controlSystem;
+	[Header("武器系統:犀牛")]
+	public WeaponSystem weaponSystem;
+	[Header("玩家血量:玩家犀牛")]
+	public DataHealth dataHealth;
+	[Header("經驗植物件:波動經驗值")]
+	public CircleCollider2D expHadokan;
+	[Header("武器:迴旋鳥")]
+	public Weapon weaponBird;
 
-    public void UpdateWeaponAttack(int number)
-    {
+	private void Awake()
+	{
+		controlSystem.moveSpeed = dataSkills[3].skillValues[0];
+		weaponBird.attack = dataSkills[0].skillValues[0];
+		weaponSystem.interval = dataSkills[1].skillValues[0];
+		dataHealth.hp = dataSkills[2].skillValues[0];
+		expHadokan.radius = dataSkills[4].skillValues[0];
+	}
 
-    }
+	public void UpdateMoveSpeed(int number)
+	{
+		int lv = randomSkill[number].lv;
+		controlSystem.moveSpeed = randomSkill[number].skillValues[lv - 1];
+	}
 
-    public void UpdateWeaponInterval(int number)
-    {
-        int lv = randomSkill[number].lv;
-        weaponSystem.interval = randomSkill[number].skillValues[lv - 1];
-    }
+	public void UpdateWeaponAttack(int number)
+	{
+		int lv = randomSkill[number].lv;
+		weaponBird.attack = randomSkill[number].skillValues[lv - 1];
+	}
 
-    public void UpdatePlyerHealth(int number)
-    {
-        int lv = randomSkill[number].lv;
-        dataHealth.hp = randomSkill[number].skillValues[lv - 1];
-    }
+	public void UpdateWeaponInterval(int number)
+	{
+		int lv = randomSkill[number].lv;
+		weaponSystem.interval = randomSkill[number].skillValues[lv - 1];
+	}
 
-    public void UpdateExpRange(int number)
-    {
+	public void UpdatePlyerHealth(int number)
+	{
+		int lv = randomSkill[number].lv;
+		dataHealth.hp = randomSkill[number].skillValues[lv - 1];
+	}
 
-    }
-}
+	public void UpdateExpRange(int number)
+	{
+		int lv = randomSkill[number].lv;
+		expHadokan.radius = randomSkill[number].skillValues[lv - 1];
+	}
+}  
+#endregion
+
