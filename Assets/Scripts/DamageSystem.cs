@@ -8,14 +8,15 @@ public class DamageSystem : MonoBehaviour
     [Header("µe¥¬¶Ë®`­È")]
     public GameObject prefabDamage;
 
-    private float hp;
-
-
+    protected float hp;
+    protected float hpMax;
     private void Awake()
     {
         hp = data.hp;
+        hpMax = hp;
+
     }
-    public void GetDamage(float damage)
+    public virtual void GetDamage(float damage)
     {
         //print($"<color=ff6687>¨ü¨ì¶Ë®` {damage}</color>");
         hp -= damage;
