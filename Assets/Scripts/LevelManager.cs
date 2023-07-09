@@ -105,10 +105,10 @@ public class LevelManager : MonoBehaviour
 
 	private void Awake()
 	{
-		controlSystem.moveSpeed = dataSkills[3].skillValues[0];
+		controlSystem.moveSpeed = dataSkills[2].skillValues[0];
 		weaponBird.attack = dataSkills[0].skillValues[0];
 		weaponSystem.interval = dataSkills[1].skillValues[0];
-		dataHealth.hp = dataSkills[2].skillValues[0];
+		dataHealth.hp = dataSkills[3].skillValues[0];
 		expHadokan.radius = dataSkills[4].skillValues[0];
 	}
 
